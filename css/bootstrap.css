@@ -8,9 +8,14 @@
 .fa-arrow-down{
   font-size: 2.5em;
 }
+.text-location{
+  margin-top: 1.5vh;
+}
 
-.search-header-location{
-  margin-top: 1vh;
+.select-location{
+  margin-left: 5vw;
+  width: 5vw;
+  margin-top: 2.5vh;
 }
 
 img{
