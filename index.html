@@ -68,16 +68,17 @@
           <h2>{{post.title}}</h2>
         </div>
         <div class="col-md-6 text-right">
-          <h4>{{counter.tracker}}</h4>
-          <i ng-click="counterPos()" class="fa fa-arrow-up"></i>
-          <i ng-click="counterNeg()" class="fa fa-arrow-down"></i>
+          <h4>{{post.votes}}</h4>
+          <i ng-click="counterPos(post)" class="fa fa-arrow-up"></i>
+          <i ng-click="counterNeg(post)" class="fa fa-arrow-down"></i>
         </div>
         </div>
         </div>
-          <div class="">
+          <div >
             <img src="{{post.image}}" alt="" />
             <h4>Author: {{post.author}}</h4>
             <h4>{{post.description}}</h4>
+
           </div>
       </div>
     </div>
@@ -87,19 +88,22 @@
         title: 'Ski towns, 4 dudes 1 chick, lets party',
         image: 'https://i.ytimg.com/vi/zMshy41lXjs/maxresdefault.jpg',
         author: 'Jackster',
-        description: 'When the ski season comes around, Its always a bro tastic time.'
+        description: 'When the ski season comes around, Its always a bro tastic time.',
+        votes: 1
       },
       {
         title: 'Ski Bums and life',
         image: 'http://bloximages.newyork1.vip.townnews.com/jhnewsandguide.com/content/tncms/assets/v3/editorial/1/15/115e4234-8d89-59e3-808d-98c83a8eed8d/56faf5226f02a.image.jpg?resize=645%2C760',
         author: 'Scally McGree',
-        description: 'The life of a ski bum can be extremely.......'
+        description: 'The life of a ski bum can be extremely.......',
+        votes: 1
       },
       {
         title: 'Can we use your hot tub Bra?',
         image: 'http://m5.paperblog.com/i/24/249371/for-those-about-to-ski-bum-we-salute-you-L-kGGina.jpeg',
         author: 'Jack Daniels',
-        description: 'The night we ventured into our neighbors hot tub, the events that occured after are unspeakble.'
+        description: 'The night we ventured into our neighbors hot tub, the events that occured after are unspeakble.',
+        votes: 1
       }
     ]">
     </div>

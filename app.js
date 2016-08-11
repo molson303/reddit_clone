@@ -3,14 +3,12 @@ app.controller("ExercisesController", function($scope){
   $scope.counter = {}
   $scope.counter.tracker = 0;
 
-  $scope.counterPos = function(){
 
-      $scope.counter.tracker = $scope.counter.tracker += 1;
-
+  $scope.counterPos = function(post){
+    post.votes = post.votes + 1;
     }
-  $scope.counterNeg = function(){
-      $scope.counter.tracker = $scope.counter.tracker -= 1;
-      
-  }
+  $scope.counterNeg = function(post){
+    post.votes = post.votes - 1;
+    }
 
 })
