@@ -1,12 +1,31 @@
 
 .text-dec{
   border: 1px solid black;
+  background-color: lightgray;
+}
+.margin{
+  margin-top: 1vh;
+}
+.author{
+  margin-left:10px;
+
+}
+.post-date{
+  display: inline-block;
+  margin-left: 10px;
+}
+.comment-section{
+  display: inline-block;
+}
+.add-comment{
+  display: inline-block;
+
 }
 .fa-arrow-up{
-  font-size: 2.5em;
+  font-size: 2em;
 }
 .fa-arrow-down{
-  font-size: 2.5em;
+  font-size: 2em;
 }
 .text-location{
   margin-top: 1.5vh;
@@ -22,6 +41,11 @@
 }
 .highlightR{
   color: red;
+}
+
+.iconloc{
+  display: inline-block;
+
 }
 
 .fade.ng-enter {
