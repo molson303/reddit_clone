@@ -8,6 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <script src="https://use.fontawesome.com/26de7c1914.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.js"></script>
     <title>Reddit Clone</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
@@ -17,42 +20,37 @@
     </style>
 </head>
 
-<body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Reddit Clone</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                      <button class="btn btn-primary btn-lg" data-target="#mikesModal" data-toggle="modal">  + Submit Post</button>
-                    </li>
-                    <li>
-                      <div class="text-location">
-                        <input type="text" class="form-control" placeholder="Search">
-                      </div>
-                    </li>
-                    <select class=" select-location">
-                      <option>date</option>
-                      <option>title</option>
-                      <option>vote</option>
-                    </select>
-              </ul>
-
-            </div>
+<body ng-controller="ExercisesController">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <a class="navbar-brand" href="#">Reddit Clone</a>
         </div>
-    </nav>
-<div ng-controller="ExercisesController">
-
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li>
+                <button class="btn btn-primary btn-lg" data-target="#mikesModal" data-toggle="modal">  + Submit Post</button>
+              </li>
+                <li>
+                  <div class="text-location">
+                    <input ng-model="searchText.title" type="text" class="form-control" placeholder="Search">
+                  </div>
+                </li>
+                  <select class="select-location" ng-model="taco" >
+                    <option>date</option>
+                    <option>title</option>
+                    <option>vote</option>
+                  </select>
+            </ul>
+          </div>
+        </div>
+      </nav>
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -60,7 +58,7 @@
         </div>
       </div>
     </div>
-  <div ng-repeat="post in posts">
+  <div ng-repeat="post in posts | filter:searchText | orderBy:'-votes' | orderBy:taco ">
     <div class="container">
       <div class="row">
         <div class="text-dec">
@@ -68,7 +66,7 @@
           <h2>{{post.title}}</h2>
         </div>
         <div class="col-md-6 text-right">
-          <h4>{{post.votes}}</h4>
+        <h4 ng-class='{highlightG: post.votes >= 1, highlightR: post.votes <=-1}'>{{post.votes}}</h4>
           <i ng-click="counterPos(post)" class="fa fa-arrow-up"></i>
           <i ng-click="counterNeg(post)" class="fa fa-arrow-down"></i>
         </div>
@@ -78,36 +76,11 @@
             <img src="{{post.image}}" alt="" />
             <h4>Author: {{post.author}}</h4>
             <h4>{{post.description}}</h4>
-
-          </div>
+        </div>
       </div>
     </div>
-    <div ng-init="posts=
-    [
-      {
-        title: 'Ski towns, 4 dudes 1 chick, lets party',
-        image: 'https://i.ytimg.com/vi/zMshy41lXjs/maxresdefault.jpg',
-        author: 'Jackster',
-        description: 'When the ski season comes around, Its always a bro tastic time.',
-        votes: 1
-      },
-      {
-        title: 'Ski Bums and life',
-        image: 'http://bloximages.newyork1.vip.townnews.com/jhnewsandguide.com/content/tncms/assets/v3/editorial/1/15/115e4234-8d89-59e3-808d-98c83a8eed8d/56faf5226f02a.image.jpg?resize=645%2C760',
-        author: 'Scally McGree',
-        description: 'The life of a ski bum can be extremely.......',
-        votes: 1
-      },
-      {
-        title: 'Can we use your hot tub Bra?',
-        image: 'http://m5.paperblog.com/i/24/249371/for-those-about-to-ski-bum-we-salute-you-L-kGGina.jpeg',
-        author: 'Jack Daniels',
-        description: 'The night we ventured into our neighbors hot tub, the events that occured after are unspeakble.',
-        votes: 1
-      }
-    ]">
-    </div>
-</div>
+
+
 <!-- THIS IS FOR THE MODAL -->
 <div id="mikesModal" class="modal fade">
   <div class="modal-dialog" role="document">
@@ -120,24 +93,26 @@
 </h3>
       </div>
       <div class="modal-body">
-      <div ng-controller="ExercisesController">
         <form>
-        <div class="form-group col-md-6">
-          <label>Title</label>
-          <input type="text" class="form-control"  placeholder="Title">
-        </div>
-        <div class="form-group col-md-6">
-          <label>Author</label>
-          <input type="text" class="form-control" placeholder="Author">
-        </div>
-        <div class="form-group col-md-6">
-          <label>Image Url</label>
-          <input type="text" class="form-control" placeholder="Image URL">
-        </div>
-        <div class="form-group col-md-6">
-          <label>Description</label>
-          <input type="text" class="form-control" placeholder="Description">
-        </div>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <span class="label label-danger" data-ng-show="submitted && helpForm.email.$error.required">Required!</span>
+            <input type="text" name="title" data-ng-model="title" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="title">Author</label>
+            <span class="label label-danger" data-ng-show="submitted && helpForm.email.$error.required">Required!</span>
+            <input type="text" name="title" data-ng-model="author" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="title">Image</label>
+            <span class="label label-danger" data-ng-show="submitted && helpForm.email.$error.required">Required!</span>
+            <input type="text" name="image" data-ng-model="image" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="title">Description</label>
+            <span class="label label-danger" data-ng-show="submitted && helpForm.email.$error.required">Required!</span>
+            <input type="text" name="description" data-ng-model="description" class="form-control" required />
       </form>
         </div>
       <div class="modal-footer">
@@ -147,8 +122,31 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+<div ng-init="posts=
+[
+  {
+    title: 'Ski towns, 4 dudes 1 chick, lets party',
+    image: 'https://i.ytimg.com/vi/zMshy41lXjs/maxresdefault.jpg',
+    author: 'Jackster',
+    description: 'When the ski season comes around, Its always a bro tastic time.',
+    votes: 1
+  },
+  {
+    title: 'Ski Bums and life',
+    image: 'http://bloximages.newyork1.vip.townnews.com/jhnewsandguide.com/content/tncms/assets/v3/editorial/1/15/115e4234-8d89-59e3-808d-98c83a8eed8d/56faf5226f02a.image.jpg?resize=645%2C760',
+    author: 'Scally McGree',
+    description: 'The life of a ski bum can be extremely.......',
+    votes: 1
+  },
+  {
+    title: 'Can we use your hot tub Bra?',
+    image: 'http://m5.paperblog.com/i/24/249371/for-those-about-to-ski-bum-we-salute-you-L-kGGina.jpeg',
+    author: 'Jack Daniels',
+    description: 'The night we ventured into our neighbors hot tub, the events that occured after are unspeakble.',
+    votes: 1
+  }
+]">
+</div>
     <script src="app.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
